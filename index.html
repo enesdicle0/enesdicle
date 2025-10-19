@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enes Dicle - Web GIS Ödev 1</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/css/ol.css" type="text/css">
+    
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <header>
+        <h1>GMT 458 - Kişisel Web Sayfası</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Harita & Giriş</a></li>
+            <li><a href="background.html">Arka Planım</a></li>
+            <li><a href="projects.html">Projeler ve Beceriler</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2>Hoş Geldiniz</h2>
+        <p>Bu, Web GIS ödevim için OpenLayers entegrasyonunu ve temel web tasarımını gösteren kişisel web sayfasıdır. Aşağıdaki harita OpenLayers kütüphanesi kullanılarak oluşturulmuştur.</p>
+
+        <div id="map">Harita Yükleniyor...</div> 
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Enes Dicle | İletişim: enesdicle@hacettepe.edu.tr</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/build/ol.js"></script>
+    
+    <script>
+        var centerCoords = ol.proj.fromLonLat([32.7303, 39.8662]); 
+
+        var map = new ol.Map({
+            target: 'map', 
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+            ],
+            view: new ol.View({
+                center: centerCoords, 
+                zoom: 13 
+            })
+        });
+
+        // Nokta (Marker) Ekleme Kodu
+        var vectorSource = new ol.source.Vector({});
+        var pointFeature = new ol.Feature({
+            geometry: new ol.geom.Point(centerCoords),
+            name: 'Hacettepe Üniversitesi'
+        });
+        vectorSource.addFeature(pointFeature);
+
+        var vectorLayer = new ol.layer.Vector({
+          source: vectorSource,
+          style: new ol.style.Style({
+            image: new ol.style.Circle({
+              radius: 8,
+              fill: new ol.style.Fill({color: 'red'}), 
+              stroke: new ol.style.Stroke({color: 'white', width: 2})
+            })
+          })
+        });
+
+        map.addLayer(vectorLayer);
+    </script>
+</body>
+</html>

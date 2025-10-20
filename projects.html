@@ -1,56 +1,354 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeler ve Beceriler</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Enes Dicle | Geomatics Engineer Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        
+        :root {
+            --primary-color: #5F9EA0; /* Cadet Blue */
+            --secondary-color: #4682B4; /* Steel Blue */
+            --background-color: #282c34;
+            --card-background: #21252b;
+            --text-color: #abb2bf;
+            --header-color: #ffffff;
+            --font-header: 'Montserrat', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-header);
+            color: var(--header-color);
+        }
+
+        
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        
+        .hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 1200px;
+            width: 100%;
+            height: 85vh;
+            max-height: 750px;
+            background-color: var(--card-background);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-panel {
+            padding: 3rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            margin-bottom: 1.5rem;
+            align-self: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            margin: 0;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            margin-top: 0;
+        }
+
+        .summary p {
+            font-size: 0.95em;
+        }
+
+        .social-links {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.5em;
+            margin: 0 1rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .map-panel, #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        
+        #skills, #projects {
+            width: 100%;
+            max-width: 1100px;
+            padding: 4rem 2rem;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .skill-card i {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .skill-card h3 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .project-card {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            margin-top: 0;
+        }
+
+        .project-tags {
+            margin-top: 1rem;
+        }
+
+        .project-tags span {
+            background-color: var(--primary-color);
+            color: var(--header-color);
+            padding: 0.3rem 0.7rem;
+            border-radius: 5px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        
+        @media (max-width: 992px) {
+            .hero {
+                min-height: auto;
+                padding: 2rem 1rem;
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+                height: auto;
+                max-height: none;
+            }
+            .info-panel {
+                padding: 2rem;
+            }
+            .map-panel {
+                height: 400px;
+            }
+            h1 { font-size: 2em; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>GMT 458 - Kişisel Web Sayfası</h1>
-    </header>
 
-    <nav>
-        <ul>
-            <li><a href="index.html">Harita & Giriş</a></li>
-            <li><a href="background.html">Arka Planım</a></li>
-            <li><a href="projects.html">Projeler ve Beceriler</a></li>
-        </ul>
-    </nav>
-
-    <main>
-        <h2>Proje ve İlgi Alanları</h2>
+    <main class="main-container">
         
-        <section id="project-list">
-            <p>Aşağıda ödev kapsamında belirtilen teknoloji ve alanlara ilişkin çalışmalarım yer almaktadır.</p>
-            
-            <table class="project-table">
-                <thead>
-                    <tr>
-                        <th>Çalışma Alanı</th>
-                        <th>Açıklama</th>
-                        <th>Görsel (Yer Tutucu)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>**Web GIS Geliştirme**</td>
-                        <td>HTML, CSS ve OpenLayers kullanarak vektör ve raster katmanları web ortamında gösterme.</td>
-                        <td><img src="https://via.placeholder.com/60/007bff/ffffff?text=OL" alt="OpenLayers" class="table-img"></td>
-                    </tr>
-                    <tr>
-                        <td>**Veri Analizi**</td>
-                        <td>Python programlama dili ile coğrafi verilerin işlenmesi ve analizi.</td>
-                        <td><img src="https://via.placeholder.com/60/ff9800/ffffff?text=PY" alt="Python" class="table-img"></td>
-                    </tr>
-                </tbody>
-            </table>
+        <section class="hero" id="about">
+            <div class="content-grid">
+                <div class="info-panel">
+                    <img src="https://placehold.co/150x150/5F9EA0/FFFFFF?text=ED" alt="Profile Picture" class="profile-pic">
+                    <h1>Enes Dicle</h1>
+                    <p class="subtitle">Hacettepe University | Geomatics Engineering</p>
+
+                    <div class="summary">
+                        <h2>Professional Summary</h2>
+                        <p>
+                            A highly motivated and detail-oriented final-year Geomatics Engineering student at Hacettepe University, poised to leverage a strong academic foundation and extensive practical experience. Through a series of intensive industry placements, I have successfully bridged the gap between theory and real-world application, gaining robust, hands-on expertise in GIS, photogrammetry, and data science.
+                        </p>
+                        <p>
+                            I am technically proficient in programming with Python to automate complex geospatial workflows and perform data manipulation, complemented by a solid understanding of HTML for web-based data presentation. I expertly deploy industry-standard software such as QGIS and ArcGIS to execute advanced spatial analysis, model complex datasets, and generate high-impact, professional cartographic outputs that support critical decision-making. I am eager to apply my comprehensive skill set to solve challenging spatial problems in a professional capacity.
+                        </p>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://twitter.com/enesdicle0" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/enesdicle0" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="map-panel">
+                    <div id="map"></div>
+                </div>
+            </div>
         </section>
+
+        <section id="skills">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card"><i class="fas fa-globe-americas"></i><h3>GIS</h3></div>
+                <div class="skill-card"><i class="fab fa-python"></i><h3>Python</h3></div>
+                <div class="skill-card"><i class="fas fa-camera"></i><h3>Photogrammetry</h3></div>
+                <div class="skill-card"><i class="fas fa-database"></i><h3>Data Science</h3></div>
+                <div class="skill-card"><i class="fas fa-map-marked-alt"></i><h3>QGIS / ArcGIS</h3></div>
+                <div class="skill-card"><i class="fab fa-html5"></i><h3>HTML</h3></div>
+            </div>
+        </section>
+        
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="https://placehold.co/600x400/282c34/abb2bf?text=Ankara+City+Analysis" alt="Project 1 Image">
+                    <div class="project-info">
+                        <h3>Ankara Şehir Analizi</h3>
+                        <p>QGIS ve Python kullanarak Ankara'nın kentsel gelişim alanlarını analiz eden bir coğrafi analiz projesi.</p>
+                        <div class="project-tags">
+                            <span>Python</span>
+                            <span>QGIS</span>
+                            <span>Veri Analizi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://placehold.co/600x400/282c34/abb2bf?text=Interactive+Web+Map" alt="Project 2 Image">
+                    <div class="project-info">
+                        <h3>İnteraktif Web Haritası</h3>
+                        <p>Leaflet.js kütüphanesi ile geliştirilmiş, belirli veri noktalarını gösteren dinamik bir web haritası uygulaması.</p>
+                        <div class="project-tags">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer>
-        <p>&copy; 2025 Enes Dicle | İletişim: enesdicle@hacettepe.edu.tr</p>
-    </footer>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script>
+        
+        
+        const map = L.map('map').setView([39.925533, 32.866287], 6); i
+
+       
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }).addTo(map);
+
+        
+        const ankaraMarker = L.marker([39.925533, 32.866287]).addTo(map);
+
+       
+        ankaraMarker.bindPopup("<b>Ankara, Turkey</b><br>Hacettepe University").openPopup();
+    </script>
+
 </body>
 </html>

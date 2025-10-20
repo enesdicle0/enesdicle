@@ -1,76 +1,99 @@
+index.html 
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enes Dicle - Web GIS Ödev 1</title>
+    <title>Enes Dicle | Geomatics Engineer Portfolio</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/css/ol.css" type="text/css">
-    
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
-    <header>
-        <h1>GMT 458 - Kişisel Web Sayfası</h1>
-    </header>
 
-    <nav>
-        <ul>
-            <li><a href="index.html">Harita & Giriş</a></li>
-            <li><a href="background.html">Arka Planım</a></li>
-            <li><a href="projects.html">Projeler ve Beceriler</a></li>
-        </ul>
-    </nav>
+    <main class="main-container">
+        
+        <section class="hero" id="about">
+            <div class="content-grid">
+                <div class="info-panel">
+                    <img src="assets/profile-pic.jpg" alt="Profile Picture" class="profile-pic">
+                    <h1>Enes Dicle</h1>
+                    <p class="subtitle">Hacettepe University | Geomatics Engineering</p>
 
-    <main>
-        <h2>Hoş Geldiniz</h2>
-        <p>Bu, Web GIS ödevim için OpenLayers entegrasyonunu ve temel web tasarımını gösteren kişisel web sayfasıdır. Aşağıdaki harita OpenLayers kütüphanesi kullanılarak oluşturulmuştur.</p>
+                    <div class="summary">
+                        <h2>Professional Summary</h2>
+                        <p>
+                            A highly motivated and detail-oriented final-year Geomatics Engineering student... (Önceki kodda yer alan metnin tamamı)
+                        </p>
+                        <p>
+                            I am technically proficient in programming with Python... (Önceki kodda yer alan metnin devamı)
+                        </p>
+                    </div>
 
-        <div id="map">Harita Yükleniyor...</div> 
+                    <div class="social-links">
+                        <a href="https://twitter.com/enesdicle0" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://instagram.com/enesdicle0" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="map-panel">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card"><i class="fas fa-globe-americas"></i><h3>GIS</h3></div>
+                <div class="skill-card"><i class="fab fa-python"></i><h3>Python</h3></div>
+                <div class="skill-card"><i class="fas fa-camera"></i><h3>Photogrammetry</h3></div>
+                <div class="skill-card"><i class="fas fa-database"></i><h3>Data Science</h3></div>
+                <div class="skill-card"><i class="fas fa-map-marked-alt"></i><h3>QGIS / ArcGIS</h3></div>
+                <div class="skill-card"><i class="fab fa-html5"></i><h3>HTML</h3></div>
+            </div>
+        </section>
+        
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="assets/project1.jpg" alt="Project 1 Image">
+                    <div class="project-info">
+                        <h3>Ankara Şehir Analizi</h3>
+                        <p>QGIS ve Python kullanarak Ankara'nın kentsel gelişim alanlarını analiz eden bir coğrafi analiz projesi.</p>
+                        <div class="project-tags">
+                            <span>Python</span>
+                            <span>QGIS</span>
+                            <span>Veri Analizi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="assets/project2.jpg" alt="Project 2 Image">
+                    <div class="project-info">
+                        <h3>İnteraktif Web Haritası</h3>
+                        <p>Leaflet.js kütüphanesi ile geliştirilmiş, belirli veri noktalarını gösteren dinamik bir web haritası uygulaması.</p>
+                        <div class="project-tags">
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer>
-        <p>&copy; 2025 Enes Dicle | İletişim: enesdicle@hacettepe.edu.tr</p>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/build/ol.js"></script>
-    
-    <script>
-        var centerCoords = ol.proj.fromLonLat([32.7303, 39.8662]); 
-
-        var map = new ol.Map({
-            target: 'map', 
-            layers: [
-                new ol.layer.Tile({
-                    source: new ol.source.OSM()
-                })
-            ],
-            view: new ol.View({
-                center: centerCoords, 
-                zoom: 13 
-            })
-        });
-
-        // Nokta (Marker) Ekleme Kodu
-        var vectorSource = new ol.source.Vector({});
-        var pointFeature = new ol.Feature({
-            geometry: new ol.geom.Point(centerCoords),
-            name: 'Hacettepe Üniversitesi'
-        });
-        vectorSource.addFeature(pointFeature);
-
-        var vectorLayer = new ol.layer.Vector({
-          source: vectorSource,
-          style: new ol.style.Style({
-            image: new ol.style.Circle({
-              radius: 8,
-              fill: new ol.style.Fill({color: 'red'}), 
-              stroke: new ol.style.Stroke({color: 'white', width: 2})
-            })
-          })
-        });
-
-        map.addLayer(vectorLayer);
-    </script>
-</body>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script> </body>
 </html>
